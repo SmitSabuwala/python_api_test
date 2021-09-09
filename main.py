@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask,request
 import requests
 import json
 # from flask_sslify import SSLify
@@ -7,8 +7,9 @@ app = Flask(__name__)
 # sslify = SSLify(app)
 
 
-@app.route("/")
+@app.route("/",methods=['POST'])
 def hello_world():
+    creationTime = request.json['creationTime']
     data = {
   "request_data":{ 
     "filters":
@@ -16,7 +17,7 @@ def hello_world():
         {
         "field": "creation_time",
         "operator": "gte",
-        "value":  1631093279000     
+        "value":  int(creationTime)     
         }
     ]
   }
